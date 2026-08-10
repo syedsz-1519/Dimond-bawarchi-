@@ -105,6 +105,18 @@ export const Footer: React.FC<FooterProps> = ({ setActiveSection }) => {
       {/* Copyright Line */}
       <div className="max-w-7xl mx-auto pt-6 border-t border-slate-800 text-center text-[11px] text-slate-500 flex flex-col sm:flex-row justify-between items-center gap-2">
         <p>© {new Date().getFullYear()} Diamond Bawarchi. All rights reserved.</p>
+
+        {/* Staff Admin Access Link */}
+        <button
+          onClick={() => {
+            setActiveSection('dashboard');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+          }}
+          className="text-[10px] text-slate-600 hover:text-amber-400 underline transition-colors"
+        >
+          Staff &amp; Admin Order Portal
+        </button>
+
         <p className="flex items-center gap-1">
           Made with <Heart className="w-3 h-3 text-red-500 fill-red-500" /> in Shadnagar, Telangana
         </p>
@@ -113,4 +125,5 @@ export const Footer: React.FC<FooterProps> = ({ setActiveSection }) => {
     </footer>
   );
 };
+
 

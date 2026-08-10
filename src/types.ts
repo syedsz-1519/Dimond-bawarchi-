@@ -73,4 +73,5 @@ export interface Review {
   avatar?: string;
 }
 
-export type PageSection = 'home' | 'menu' | 'catering' | 'hotel' | 'gallery' | 'contact';
+export type PageSection = 'home' | 'menu' | 'catering' | 'hotel' | 'gallery' | 'contact' | 'dashboard';
+

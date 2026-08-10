@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { PageSection, CartItem, MenuItem } from './types';
 import { Header } from './components/Header';
 import { Hero } from './components/Hero';
@@ -15,12 +15,45 @@ import { CartDrawer } from './components/CartDrawer';
 import { TableBookingModal } from './components/TableBookingModal';
 import { StickyNav } from './components/StickyNav';
 import { WhatsAppWidget } from './components/WhatsAppWidget';
+import { OrdersProvider } from './context/OrdersContext';
+import { Dashboard } from './pages/Dashboard';
 
 export default function App() {
-  const [activeSection, setActiveSection] = useState<PageSection>('home');
+  const getInitialSection = (): PageSection => {
+    const path = window.location.pathname.toLowerCase();
+    if (path.startsWith('/dashboard') || path.startsWith('/admin')) {
+      return 'dashboard';
+    }
+    return 'home';
+  };
+
+  const [activeSection, setActiveSection] = useState<PageSection>(getInitialSection);
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [isBookingOpen, setIsBookingOpen] = useState(false);
+
+  // Sync URL history state when activeSection changes
+  const changeSection = (section: PageSection) => {
+    setActiveSection(section);
+    if (section === 'dashboard') {
+      window.history.pushState({}, '', '/dashboard');
+    } else if (window.location.pathname.startsWith('/dashboard') || window.location.pathname.startsWith('/admin')) {
+      window.history.pushState({}, '', '/');
+    }
+  };
+
+  useEffect(() => {
+    const handlePopState = () => {
+      const path = window.location.pathname.toLowerCase();
+      if (path.startsWith('/dashboard') || path.startsWith('/admin')) {
+        setActiveSection('dashboard');
+      } else {
+        setActiveSection('home');
+      }
+    };
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, []);
 
   // Cart Handlers
   const handleAddToCart = (item: MenuItem, selectedSize?: string, selectedPrice?: number) => {
@@ -72,77 +105,87 @@ export default function App() {
   const totalCartCount = cartItems.reduce((acc, ci) => acc + ci.quantity, 0);
 
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-800 font-sans selection:bg-blue-900 selection:text-white antialiased">
-      
-      {/* Fixed Navigation Header */}
-      <Header
-        activeSection={activeSection}
-        setActiveSection={setActiveSection}
-        cartItems={cartItems}
-        setIsCartOpen={setIsCartOpen}
-        setIsBookingOpen={setIsBookingOpen}
-      />
-
-      {/* Main Content Sections */}
-      <main className="pt-20 pb-12">
-        {activeSection === 'home' && (
+    <OrdersProvider>
+      <div className="min-h-screen bg-slate-50 text-slate-800 font-sans selection:bg-blue-900 selection:text-white antialiased">
+        
+        {/* Dedicated Admin Dashboard View */}
+        {activeSection === 'dashboard' ? (
+          <Dashboard onGoToStorefront={() => changeSection('home')} />
+        ) : (
           <>
-            <Hero setActiveSection={setActiveSection} setIsBookingOpen={setIsBookingOpen} />
-            <AboutSection setActiveSection={setActiveSection} />
-            <MenuSection onAddToCart={handleAddToCart} />
-            <PopularTimes />
-            <ReviewsSection />
-            <ContactSection />
+            {/* Fixed Customer Navigation Header */}
+            <Header
+              activeSection={activeSection}
+              setActiveSection={changeSection}
+              cartItems={cartItems}
+              setIsCartOpen={setIsCartOpen}
+              setIsBookingOpen={setIsBookingOpen}
+            />
+
+            {/* Main Content Sections */}
+            <main className="pt-20 pb-12">
+              {activeSection === 'home' && (
+                <>
+                  <Hero setActiveSection={changeSection} setIsBookingOpen={setIsBookingOpen} />
+                  <AboutSection setActiveSection={changeSection} />
+                  <MenuSection onAddToCart={handleAddToCart} />
+                  <PopularTimes />
+                  <ReviewsSection />
+                  <ContactSection />
+                </>
+              )}
+
+              {activeSection === 'menu' && (
+                <>
+                  <MenuSection onAddToCart={handleAddToCart} />
+                  <PopularTimes />
+                </>
+              )}
+
+              {activeSection === 'catering' && <CateringSection />}
+
+              {activeSection === 'hotel' && <HotelSection />}
+
+              {activeSection === 'gallery' && <GallerySection />}
+
+              {activeSection === 'contact' && <ContactSection />}
+            </main>
+
+            {/* Footer */}
+            <Footer setActiveSection={changeSection} />
+
+            {/* Slide-over Cart Drawer */}
+            <CartDrawer
+              isOpen={isCartOpen}
+              onClose={() => setIsCartOpen(false)}
+              cartItems={cartItems}
+              onUpdateQuantity={handleUpdateQuantity}
+              onRemoveItem={handleRemoveItem}
+              onClearCart={handleClearCart}
+            />
+
+            {/* Table Reservation Modal */}
+            <TableBookingModal
+              isOpen={isBookingOpen}
+              onClose={() => setIsBookingOpen(false)}
+            />
+
+            {/* Mobile Sticky Quick Navigation */}
+            <StickyNav
+              activeSection={activeSection}
+              setActiveSection={changeSection}
+              cartCount={totalCartCount}
+              setIsCartOpen={setIsCartOpen}
+              setIsBookingOpen={setIsBookingOpen}
+            />
+
+            {/* Floating WhatsApp Quick Action Widget */}
+            <WhatsAppWidget />
           </>
         )}
 
-        {activeSection === 'menu' && (
-          <>
-            <MenuSection onAddToCart={handleAddToCart} />
-            <PopularTimes />
-          </>
-        )}
-
-        {activeSection === 'catering' && <CateringSection />}
-
-        {activeSection === 'hotel' && <HotelSection />}
-
-        {activeSection === 'gallery' && <GallerySection />}
-
-        {activeSection === 'contact' && <ContactSection />}
-      </main>
-
-      {/* Footer */}
-      <Footer setActiveSection={setActiveSection} />
-
-      {/* Slide-over Cart Drawer */}
-      <CartDrawer
-        isOpen={isCartOpen}
-        onClose={() => setIsCartOpen(false)}
-        cartItems={cartItems}
-        onUpdateQuantity={handleUpdateQuantity}
-        onRemoveItem={handleRemoveItem}
-        onClearCart={handleClearCart}
-      />
-
-      {/* Table Reservation Modal */}
-      <TableBookingModal
-        isOpen={isBookingOpen}
-        onClose={() => setIsBookingOpen(false)}
-      />
-
-      {/* Mobile Sticky Quick Navigation */}
-      <StickyNav
-        activeSection={activeSection}
-        setActiveSection={setActiveSection}
-        cartCount={totalCartCount}
-        setIsCartOpen={setIsCartOpen}
-        setIsBookingOpen={setIsBookingOpen}
-      />
-
-      {/* Floating WhatsApp Quick Action Widget */}
-      <WhatsAppWidget />
-
-    </div>
+      </div>
+    </OrdersProvider>
   );
 }
+
