@@ -139,6 +139,7 @@ export const MENU_ITEMS: MenuItem[] = [
     category: 'starters',
     price: 210,
     isVeg: true,
+    isSpicy: true,
     image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCH_E96Af1Ksn_ddMri0PjfucCPKRsMwWAjCoNqmdQvPtTV2AKLvN7RGNEXT4FGErWGUUIOSDVsttHq3_Rl_PdHyHARtbZfVtljUhxs4QBV00Pno9WwO-r0b87rB3ig_3voyr9e2KM-fzqs5pTeUrPYt7iVyGDBeaXhyl1Yfs1bSma-kDlV5JHbF4BKGYbudIhBJZcTI9mBwRqSH2oCSfEWFz0OFgQx9a77JM1PNXvI2X_FDevKNm1r',
     tags: ['nut-free'],
     serves: 'Serves 2'
@@ -174,6 +175,7 @@ export const MENU_ITEMS: MenuItem[] = [
     category: 'starters',
     price: 210,
     isVeg: true,
+    isSpicy: true,
     image: 'https://images.unsplash.com/photo-1608897013039-887f21d8c804?auto=format&fit=crop&w=800&q=80',
     tags: ['vegan', 'nut-free'],
     serves: 'Serves 2'
@@ -331,6 +333,7 @@ export const MENU_ITEMS: MenuItem[] = [
     category: 'soups',
     price: 130,
     isVeg: false,
+    isSpicy: true,
     image: 'https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=800&q=80',
     tags: ['gluten-free', 'nut-free'],
     serves: '1 Bowl'

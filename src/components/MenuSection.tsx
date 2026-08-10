@@ -3,6 +3,8 @@ import { MENU_ITEMS } from '../data/menuData';
 import { CategoryId, MenuItem, CartItem } from '../types';
 import { Search, Flame, Plus, Check, Filter, Sparkles } from 'lucide-react';
 
+type DietaryKey = 'veg' | 'nonveg' | 'spicy' | 'gluten-free' | 'vegan' | 'nut-free' | 'bestseller';
+
 interface MenuSectionProps {
   onAddToCart: (item: MenuItem, selectedSize?: string, selectedPrice?: number) => void;
 }
@@ -10,7 +12,7 @@ interface MenuSectionProps {
 export const MenuSection: React.FC<MenuSectionProps> = ({ onAddToCart }) => {
   const [activeCategory, setActiveCategory] = useState<CategoryId>('all');
   const [searchQuery, setSearchQuery] = useState('');
-  const [dietaryFilter, setDietaryFilter] = useState<'all' | 'veg' | 'nonveg' | 'vegan' | 'gluten-free' | 'nut-free'>('all');
+  const [activeDietaryFilters, setActiveDietaryFilters] = useState<DietaryKey[]>([]);
   const [selectedSizeMap, setSelectedSizeMap] = useState<Record<string, string>>({});
   const [addedItemAnimation, setAddedItemAnimation] = useState<string | null>(null);
 
@@ -25,6 +27,38 @@ export const MenuSection: React.FC<MenuSectionProps> = ({ onAddToCart }) => {
     { id: 'soups', label: 'Soups', icon: 'stasser' },
     { id: 'combos', label: 'Combo Platters', icon: 'stars' },
   ];
+
+  const dietaryOptions: { id: DietaryKey; label: string; icon: string; badgeColor?: string }[] = [
+    { id: 'veg', label: 'Vegetarian', icon: '🟢' },
+    { id: 'nonveg', label: 'Non-Veg', icon: '🔴' },
+    { id: 'spicy', label: 'Spicy', icon: '🌶️' },
+    { id: 'gluten-free', label: 'Gluten-Free', icon: '🌾' },
+    { id: 'vegan', label: 'Vegan', icon: '🌱' },
+    { id: 'nut-free', label: 'Nut-Free', icon: '🥜' },
+    { id: 'bestseller', label: 'Bestseller', icon: '🔥' },
+  ];
+
+  const toggleDietaryFilter = (key: DietaryKey) => {
+    setActiveDietaryFilters((prev) => {
+      if (prev.includes(key)) {
+        return prev.filter((k) => k !== key);
+      } else {
+        let next = [...prev];
+        if (key === 'veg') {
+          next = next.filter((k) => k !== 'nonveg');
+        } else if (key === 'nonveg') {
+          next = next.filter((k) => k !== 'veg');
+        }
+        return [...next, key];
+      }
+    });
+  };
+
+  const clearAllFilters = () => {
+    setActiveDietaryFilters([]);
+    setSearchQuery('');
+    setActiveCategory('all');
+  };
 
   const handleSizeSelect = (itemId: string, sizeName: string) => {
     setSelectedSizeMap((prev) => ({ ...prev, [itemId]: sizeName }));
@@ -42,12 +76,14 @@ export const MenuSection: React.FC<MenuSectionProps> = ({ onAddToCart }) => {
       const matchDesc = item.description.toLowerCase().includes(q);
       if (!matchName && !matchDesc) return false;
     }
-    // Dietary filter match
-    if (dietaryFilter === 'veg' && !item.isVeg) return false;
-    if (dietaryFilter === 'nonveg' && item.isVeg) return false;
-    if (dietaryFilter === 'vegan' && (!item.tags?.includes('vegan') || !item.isVeg)) return false;
-    if (dietaryFilter === 'gluten-free' && !item.tags?.includes('gluten-free')) return false;
-    if (dietaryFilter === 'nut-free' && !item.tags?.includes('nut-free')) return false;
+    // Dietary Multi-Filter Matches
+    if (activeDietaryFilters.includes('veg') && !item.isVeg) return false;
+    if (activeDietaryFilters.includes('nonveg') && item.isVeg) return false;
+    if (activeDietaryFilters.includes('spicy') && !item.isSpicy) return false;
+    if (activeDietaryFilters.includes('gluten-free') && !item.tags?.includes('gluten-free')) return false;
+    if (activeDietaryFilters.includes('vegan') && (!item.tags?.includes('vegan') || !item.isVeg)) return false;
+    if (activeDietaryFilters.includes('nut-free') && !item.tags?.includes('nut-free')) return false;
+    if (activeDietaryFilters.includes('bestseller') && !item.isBestseller) return false;
 
     return true;
   });
@@ -86,54 +122,86 @@ export const MenuSection: React.FC<MenuSectionProps> = ({ onAddToCart }) => {
         </p>
       </div>
 
-      {/* Search & Dietary Filters Control Bar */}
-      <div className="bg-[#20201b] rounded-2xl p-4 mb-6 shadow-xl border border-[#af8d11]/30 flex flex-col md:flex-row gap-4 justify-between items-center">
+      {/* Interactive Dietary Preference Filter Bar */}
+      <div className="bg-[#20201b] rounded-2xl p-4 sm:p-5 mb-6 shadow-2xl border border-[#af8d11]/30 space-y-4">
         
-        {/* Search Input */}
-        <div className="relative w-full md:w-80">
-          <input
-            type="text"
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            placeholder="Search Chicken Biryani, Paneer 65..."
-            className="w-full bg-[#13140f] text-[#e5e2db] placeholder-[#e5e2db]/50 pl-10 pr-4 py-2.5 rounded-xl border border-white/10 focus:outline-none focus:border-[#e9c349] text-sm"
-          />
-          <Search className="w-4 h-4 text-[#e9c349] absolute left-3.5 top-1/2 -translate-y-1/2" />
-          {searchQuery && (
-            <button
-              onClick={() => setSearchQuery('')}
-              className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-[#e5e2db]/60 hover:text-white"
-            >
-              Clear
-            </button>
-          )}
+        {/* Top Control Line: Search Bar & Reset Filters */}
+        <div className="flex flex-col md:flex-row gap-3 justify-between items-stretch md:items-center">
+          
+          {/* Search Input */}
+          <div className="relative flex-1 max-w-md">
+            <input
+              type="text"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              placeholder="Search Chicken Biryani, Paneer 65, Naan..."
+              className="w-full bg-[#13140f] text-[#e5e2db] placeholder-[#e5e2db]/50 pl-10 pr-9 py-2.5 rounded-xl border border-white/10 focus:outline-none focus:border-[#e9c349] text-sm shadow-inner"
+            />
+            <Search className="w-4 h-4 text-[#e9c349] absolute left-3.5 top-1/2 -translate-y-1/2" />
+            {searchQuery && (
+              <button
+                onClick={() => setSearchQuery('')}
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-[#e5e2db]/60 hover:text-white"
+              >
+                ✕
+              </button>
+            )}
+          </div>
+
+          {/* Results Count & Clear All Button */}
+          <div className="flex items-center justify-between md:justify-end gap-3 text-xs">
+            <div className="text-[#e5e2db]/80 font-medium bg-[#13140f] px-3 py-2 rounded-lg border border-white/5">
+              Showing <span className="font-bold text-[#e9c349]">{filteredItems.length}</span> dish{filteredItems.length === 1 ? '' : 'es'}
+            </div>
+
+            {(activeDietaryFilters.length > 0 || searchQuery !== '' || activeCategory !== 'all') && (
+              <button
+                onClick={clearAllFilters}
+                className="text-[#e9c349] hover:text-white underline font-semibold transition-colors px-2 py-1"
+              >
+                Reset All Filters
+              </button>
+            )}
+          </div>
         </div>
 
-        {/* Dietary Filters Toggle */}
-        <div className="flex items-center gap-1.5 overflow-x-auto scrollbar-none w-full md:w-auto pb-1 md:pb-0">
-          <Filter className="w-4 h-4 text-[#e9c349] shrink-0 mr-1 hidden sm:block" />
-          
-          {[
-            { id: 'all', label: 'All Items' },
-            { id: 'veg', label: '🟢 Veg Only' },
-            { id: 'nonveg', label: '🔴 Non-Veg' },
-            { id: 'vegan', label: '🌱 Vegan' },
-            { id: 'gluten-free', label: '🌾 Gluten-Free' },
-            { id: 'nut-free', label: '🥜 Nut-Free' },
-          ].map((df) => (
-            <button
-              key={df.id}
-              onClick={() => setDietaryFilter(df.id as any)}
-              className={`px-3 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition-colors ${
-                dietaryFilter === df.id
-                  ? 'bg-[#e9c349] text-[#13140f] font-bold shadow-md'
-                  : 'bg-[#2a2a25] text-[#e5e2db]/80 hover:bg-[#353530]'
-              }`}
-            >
-              {df.label}
-            </button>
-          ))}
+        {/* Dietary Preferences Filter Bar */}
+        <div className="pt-2 border-t border-white/10">
+          <div className="flex items-center gap-2 mb-2">
+            <Filter className="w-4 h-4 text-[#e9c349]" />
+            <span className="text-xs font-serif-title font-bold text-[#f9f6ee] uppercase tracking-wider">
+              Dietary Preferences &amp; Tags
+            </span>
+            {activeDietaryFilters.length > 0 && (
+              <span className="bg-[#800000] text-[#ffe088] text-[10px] font-bold px-2 py-0.5 rounded-full border border-[#e9c349]/40">
+                {activeDietaryFilters.length} Active
+              </span>
+            )}
+          </div>
+
+          {/* Scrollable Filter Chips */}
+          <div className="flex items-center gap-2 overflow-x-auto scrollbar-none pb-1 snap-x">
+            {dietaryOptions.map((opt) => {
+              const isActive = activeDietaryFilters.includes(opt.id);
+              return (
+                <button
+                  key={opt.id}
+                  onClick={() => toggleDietaryFilter(opt.id)}
+                  className={`snap-start shrink-0 px-3.5 py-2 rounded-xl text-xs font-semibold flex items-center gap-1.5 transition-all shadow-md active:scale-95 ${
+                    isActive
+                      ? 'bg-gradient-to-r from-[#e9c349] to-[#af8d11] text-[#13140f] font-extrabold ring-2 ring-[#e9c349]/60 shadow-[0_2px_10px_rgba(233,195,73,0.3)]'
+                      : 'bg-[#2a2a25] text-[#e5e2db]/90 border border-white/10 hover:border-[#e9c349]/50 hover:bg-[#32322c]'
+                  }`}
+                >
+                  <span className="text-sm">{opt.icon}</span>
+                  <span>{opt.label}</span>
+                  {isActive && <Check className="w-3.5 h-3.5 stroke-[3] ml-0.5" />}
+                </button>
+              );
+            })}
+          </div>
         </div>
+
       </div>
 
       {/* Category Tabs Scrollbar */}
@@ -159,14 +227,10 @@ export const MenuSection: React.FC<MenuSectionProps> = ({ onAddToCart }) => {
         <div className="bg-[#20201b] rounded-2xl p-12 text-center border border-white/10">
           <p className="text-lg font-bold text-[#e2bfb9]">No dishes match your search/filter criteria.</p>
           <button
-            onClick={() => {
-              setActiveCategory('all');
-              setSearchQuery('');
-              setDietaryFilter('all');
-            }}
-            className="mt-4 px-6 py-2 bg-[#e9c349] text-[#13140f] font-bold rounded-xl text-xs"
+            onClick={clearAllFilters}
+            className="mt-4 px-6 py-2 bg-[#e9c349] text-[#13140f] font-bold rounded-xl text-xs hover:bg-white transition-colors"
           >
-            Reset Filters
+            Reset All Filters
           </button>
         </div>
       ) : (
@@ -190,17 +254,25 @@ export const MenuSection: React.FC<MenuSectionProps> = ({ onAddToCart }) => {
                   </div>
                 )}
 
-                {/* Veg / Non-Veg Badge Indicator */}
-                <div className="absolute top-3 right-3 z-20 bg-[#13140f]/90 backdrop-blur p-1 rounded-md shadow-md border border-white/10">
-                  {item.isVeg ? (
-                    <div className="w-4 h-4 border-2 border-green-600 flex items-center justify-center p-0.5 rounded-sm">
-                      <div className="w-2 h-2 rounded-full bg-green-600"></div>
-                    </div>
-                  ) : (
-                    <div className="w-4 h-4 border-2 border-[#800000] flex items-center justify-center p-0.5 rounded-sm">
-                      <div className="w-2 h-2 rounded-full bg-[#800000]"></div>
+                {/* Top Right Badges: Spicy & Veg / Non-Veg */}
+                <div className="absolute top-3 right-3 z-20 flex items-center gap-1.5">
+                  {item.isSpicy && (
+                    <div className="bg-[#13140f]/95 backdrop-blur px-2 py-0.5 rounded-md shadow-md border border-[#e9c349]/30 text-[10px] font-bold text-[#e9c349] flex items-center gap-0.5">
+                      🌶️ <span className="hidden sm:inline">Spicy</span>
                     </div>
                   )}
+
+                  <div className="bg-[#13140f]/90 backdrop-blur p-1 rounded-md shadow-md border border-white/10" title={item.isVeg ? "Vegetarian" : "Non-Vegetarian"}>
+                    {item.isVeg ? (
+                      <div className="w-4 h-4 border-2 border-green-600 flex items-center justify-center p-0.5 rounded-sm">
+                        <div className="w-2 h-2 rounded-full bg-green-600"></div>
+                      </div>
+                    ) : (
+                      <div className="w-4 h-4 border-2 border-[#800000] flex items-center justify-center p-0.5 rounded-sm">
+                        <div className="w-2 h-2 rounded-full bg-[#800000]"></div>
+                      </div>
+                    )}
+                  </div>
                 </div>
 
                 {/* Realistic Food Thumbnail Image */}
