@@ -78,11 +78,11 @@ export const GallerySection: React.FC = () => {
     <section id="gallery-section" className="px-4 sm:px-6 py-12 max-w-7xl mx-auto">
       
       <div className="text-center mb-8">
-        <span className="text-xs font-bold uppercase tracking-widest text-[#e9c349]">Visual Tour</span>
-        <h2 className="font-serif-title text-3xl sm:text-5xl font-bold text-[#f9f6ee] mt-1">
+        <span className="text-xs font-bold uppercase tracking-widest text-blue-900">Visual Tour</span>
+        <h2 className="font-serif-title text-3xl sm:text-5xl font-bold text-slate-900 mt-1">
           Photo Gallery &amp; Ambiance
         </h2>
-        <div className="h-0.5 w-24 bg-[#e9c349] mx-auto mt-2"></div>
+        <div className="h-0.5 w-24 bg-blue-700 mx-auto mt-2"></div>
       </div>
 
       {/* Filter Tabs */}
@@ -99,8 +99,8 @@ export const GallerySection: React.FC = () => {
             onClick={() => setFilter(tab.id as any)}
             className={`px-4 py-2 rounded-full text-xs font-bold transition-all ${
               filter === tab.id
-                ? 'bg-[#e9c349] text-[#13140f] shadow-md'
-                : 'bg-[#20201b] text-[#e5e2db]/80 hover:bg-[#2a2a25]'
+                ? 'bg-blue-900 text-white shadow-sm border border-blue-800'
+                : 'bg-white text-slate-700 border border-slate-200 hover:bg-blue-50 hover:text-blue-900'
             }`}
           >
             {tab.label}
@@ -114,7 +114,7 @@ export const GallerySection: React.FC = () => {
           <div
             key={item.id}
             onClick={() => setActiveImage(item)}
-            className="group relative h-64 rounded-2xl overflow-hidden cursor-pointer bg-[#20201b] border border-white/10 hover:border-[#e9c349] transition-all shadow-lg"
+            className="group relative h-64 rounded-2xl overflow-hidden cursor-pointer bg-white border border-slate-200 hover:border-blue-400 transition-all shadow-sm hover:shadow-md"
           >
             <img
               src={item.image}
@@ -122,18 +122,18 @@ export const GallerySection: React.FC = () => {
               referrerPolicy="no-referrer"
               className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#13140f] via-black/20 to-transparent opacity-80 group-hover:opacity-90 transition-opacity"></div>
+            <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/20 to-transparent opacity-80 group-hover:opacity-90 transition-opacity"></div>
 
             <div className="absolute bottom-0 left-0 w-full p-4">
-              <span className="text-[9px] uppercase font-bold text-[#e9c349] bg-[#800000]/60 px-2 py-0.5 rounded border border-[#e9c349]/30">
+              <span className="text-[9px] uppercase font-bold text-amber-400 bg-blue-900/90 px-2 py-0.5 rounded border border-blue-800">
                 {item.category}
               </span>
-              <h4 className="font-serif-title font-bold text-sm text-[#f9f6ee] mt-1 group-hover:text-[#e9c349] transition-colors">
+              <h4 className="font-serif-title font-bold text-sm text-white mt-1 group-hover:text-amber-400 transition-colors">
                 {item.title}
               </h4>
             </div>
 
-            <div className="absolute top-3 right-3 bg-black/60 p-1.5 rounded-full text-[#e9c349] opacity-0 group-hover:opacity-100 transition-opacity">
+            <div className="absolute top-3 right-3 bg-slate-900/80 p-1.5 rounded-full text-amber-400 opacity-0 group-hover:opacity-100 transition-opacity">
               <ZoomIn className="w-4 h-4" />
             </div>
           </div>
@@ -142,16 +142,16 @@ export const GallerySection: React.FC = () => {
 
       {/* Lightbox Modal */}
       {activeImage && (
-        <div className="fixed inset-0 z-50 bg-black/90 backdrop-blur-md flex items-center justify-center p-4">
-          <div className="max-w-4xl w-full bg-[#20201b] border border-[#e9c349] rounded-2xl overflow-hidden relative shadow-2xl">
+        <div className="fixed inset-0 z-50 bg-slate-900/70 backdrop-blur-md flex items-center justify-center p-4">
+          <div className="max-w-4xl w-full bg-white border border-slate-200 rounded-2xl overflow-hidden relative shadow-2xl">
             <button
               onClick={() => setActiveImage(null)}
-              className="absolute top-4 right-4 z-20 p-2 bg-black/60 text-white hover:text-[#e9c349] rounded-full"
+              className="absolute top-4 right-4 z-20 p-2 bg-slate-900/80 text-white hover:text-amber-400 rounded-full"
             >
               <X className="w-6 h-6" />
             </button>
 
-            <div className="max-h-[75vh] overflow-hidden bg-black flex items-center justify-center">
+            <div className="max-h-[75vh] overflow-hidden bg-slate-950 flex items-center justify-center">
               <img
                 src={activeImage.image}
                 alt={activeImage.title}
@@ -160,9 +160,9 @@ export const GallerySection: React.FC = () => {
               />
             </div>
 
-            <div className="p-6 bg-[#20201b]">
-              <h3 className="font-serif-title font-bold text-xl text-[#e9c349]">{activeImage.title}</h3>
-              <p className="text-xs text-[#e5e2db]/80 mt-1">{activeImage.description}</p>
+            <div className="p-4 bg-white">
+              <h3 className="font-serif-title font-bold text-lg text-slate-900">{activeImage.title}</h3>
+              <p className="text-xs text-slate-600 mt-0.5">{activeImage.description}</p>
             </div>
           </div>
         </div>

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { MENU_ITEMS } from '../data/menuData';
-import { CategoryId, MenuItem, CartItem } from '../types';
-import { Search, Flame, Plus, Check, Filter, Sparkles } from 'lucide-react';
+import { CategoryId, MenuItem } from '../types';
+import { Search, Flame, Plus, Check, Filter, Sparkles, Utensils } from 'lucide-react';
 
 type DietaryKey = 'veg' | 'nonveg' | 'spicy' | 'gluten-free' | 'vegan' | 'nut-free' | 'bestseller';
 
@@ -16,19 +16,19 @@ export const MenuSection: React.FC<MenuSectionProps> = ({ onAddToCart }) => {
   const [selectedSizeMap, setSelectedSizeMap] = useState<Record<string, string>>({});
   const [addedItemAnimation, setAddedItemAnimation] = useState<string | null>(null);
 
-  const categories: { id: CategoryId; label: string; icon: string }[] = [
-    { id: 'all', label: 'All Menu', icon: 'restaurant' },
-    { id: 'biryani', label: 'Biryani Specials', icon: 'local_fire_department' },
-    { id: 'starters', label: 'Starters', icon: 'kebab_dining' },
-    { id: 'curries', label: 'Curries & Gravies', icon: 'soup_kitchen' },
-    { id: 'kababs', label: 'Tandoori Kababs', icon: 'outdoor_grill' },
-    { id: 'rotis', label: 'Rotis & Naan', icon: 'bakery_dining' },
-    { id: 'rice_noodles', label: 'Fried Rice & Noodles', icon: 'ramen_dining' },
-    { id: 'soups', label: 'Soups', icon: 'stasser' },
-    { id: 'combos', label: 'Combo Platters', icon: 'stars' },
+  const categories: { id: CategoryId; label: string; icon: any }[] = [
+    { id: 'all', label: 'All Menu', icon: Utensils },
+    { id: 'biryani', label: 'Biryani Specials', icon: Flame },
+    { id: 'starters', label: 'Starters', icon: Sparkles },
+    { id: 'curries', label: 'Curries & Gravies', icon: Utensils },
+    { id: 'kababs', label: 'Tandoori Kababs', icon: Flame },
+    { id: 'rotis', label: 'Rotis & Naan', icon: Utensils },
+    { id: 'rice_noodles', label: 'Fried Rice & Noodles', icon: Utensils },
+    { id: 'soups', label: 'Soups', icon: Utensils },
+    { id: 'combos', label: 'Combo Platters', icon: Sparkles },
   ];
 
-  const dietaryOptions: { id: DietaryKey; label: string; icon: string; badgeColor?: string }[] = [
+  const dietaryOptions: { id: DietaryKey; label: string; icon: string }[] = [
     { id: 'veg', label: 'Vegetarian', icon: '🟢' },
     { id: 'nonveg', label: 'Non-Veg', icon: '🔴' },
     { id: 'spicy', label: 'Spicy', icon: '🌶️' },
@@ -65,18 +65,15 @@ export const MenuSection: React.FC<MenuSectionProps> = ({ onAddToCart }) => {
   };
 
   const filteredItems = MENU_ITEMS.filter((item) => {
-    // Category match
     if (activeCategory !== 'all' && item.category !== activeCategory) {
       return false;
     }
-    // Search match
     if (searchQuery.trim()) {
       const q = searchQuery.toLowerCase();
       const matchName = item.name.toLowerCase().includes(q);
       const matchDesc = item.description.toLowerCase().includes(q);
       if (!matchName && !matchDesc) return false;
     }
-    // Dietary Multi-Filter Matches
     if (activeDietaryFilters.includes('veg') && !item.isVeg) return false;
     if (activeDietaryFilters.includes('nonveg') && item.isVeg) return false;
     if (activeDietaryFilters.includes('spicy') && !item.isSpicy) return false;
@@ -100,7 +97,6 @@ export const MenuSection: React.FC<MenuSectionProps> = ({ onAddToCart }) => {
 
     onAddToCart(item, size, price);
 
-    // Trigger feedback animation
     setAddedItemAnimation(item.id);
     setTimeout(() => setAddedItemAnimation(null), 1000);
   };
@@ -110,22 +106,22 @@ export const MenuSection: React.FC<MenuSectionProps> = ({ onAddToCart }) => {
       
       {/* Section Header */}
       <div className="text-center mb-8">
-        <div className="inline-flex items-center gap-2 bg-[#800000]/30 text-[#e9c349] px-4 py-1.5 rounded-full border border-[#e9c349]/30 text-xs font-bold uppercase tracking-wider mb-2">
-          <Sparkles className="w-4 h-4 text-[#e9c349]" />
+        <div className="inline-flex items-center gap-2 bg-blue-50 text-blue-900 px-4 py-1.5 rounded-full border border-blue-200 text-xs font-bold uppercase tracking-wider mb-2">
+          <Sparkles className="w-4 h-4 text-blue-700" />
           Freshly Cooked &amp; Spiced
         </div>
-        <h2 className="font-serif-title text-3xl sm:text-5xl font-bold text-[#f9f6ee]">
+        <h2 className="font-serif-title text-3xl sm:text-5xl font-bold text-slate-900">
           Our Authentic Menu
         </h2>
-        <p className="text-xs sm:text-sm text-[#e2bfb9] max-w-xl mx-auto mt-2">
+        <p className="text-xs sm:text-sm text-slate-600 max-w-xl mx-auto mt-2">
           Explore our wide range of biryanis, tandoori kababs, starters, curries, and breads. Bulk &amp; catering orders welcome for groups of 20 to 100+ members!
         </p>
       </div>
 
-      {/* Interactive Dietary Preference Filter Bar */}
-      <div className="bg-[#20201b] rounded-2xl p-4 sm:p-5 mb-6 shadow-2xl border border-[#af8d11]/30 space-y-4">
+      {/* Interactive Preference & Search Bar */}
+      <div className="bg-white rounded-2xl p-4 sm:p-5 mb-6 shadow-sm border border-slate-200 space-y-4">
         
-        {/* Top Control Line: Search Bar & Reset Filters */}
+        {/* Search Bar & Reset */}
         <div className="flex flex-col md:flex-row gap-3 justify-between items-stretch md:items-center">
           
           {/* Search Input */}
@@ -135,29 +131,29 @@ export const MenuSection: React.FC<MenuSectionProps> = ({ onAddToCart }) => {
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search Chicken Biryani, Paneer 65, Naan..."
-              className="w-full bg-[#13140f] text-[#e5e2db] placeholder-[#e5e2db]/50 pl-10 pr-9 py-2.5 rounded-xl border border-white/10 focus:outline-none focus:border-[#e9c349] text-sm shadow-inner"
+              className="w-full bg-slate-50 text-slate-900 placeholder-slate-400 pl-10 pr-9 py-2.5 rounded-xl border border-slate-200 focus:outline-none focus:border-blue-600 focus:ring-1 focus:ring-blue-600 text-sm"
             />
-            <Search className="w-4 h-4 text-[#e9c349] absolute left-3.5 top-1/2 -translate-y-1/2" />
+            <Search className="w-4 h-4 text-blue-700 absolute left-3.5 top-1/2 -translate-y-1/2" />
             {searchQuery && (
               <button
                 onClick={() => setSearchQuery('')}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-[#e5e2db]/60 hover:text-white"
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-slate-400 hover:text-slate-700"
               >
                 ✕
               </button>
             )}
           </div>
 
-          {/* Results Count & Clear All Button */}
+          {/* Results Count & Clear All */}
           <div className="flex items-center justify-between md:justify-end gap-3 text-xs">
-            <div className="text-[#e5e2db]/80 font-medium bg-[#13140f] px-3 py-2 rounded-lg border border-white/5">
-              Showing <span className="font-bold text-[#e9c349]">{filteredItems.length}</span> dish{filteredItems.length === 1 ? '' : 'es'}
+            <div className="text-slate-600 font-medium bg-slate-50 px-3 py-2 rounded-lg border border-slate-200">
+              Showing <span className="font-bold text-blue-900">{filteredItems.length}</span> dish{filteredItems.length === 1 ? '' : 'es'}
             </div>
 
             {(activeDietaryFilters.length > 0 || searchQuery !== '' || activeCategory !== 'all') && (
               <button
                 onClick={clearAllFilters}
-                className="text-[#e9c349] hover:text-white underline font-semibold transition-colors px-2 py-1"
+                className="text-blue-700 hover:text-blue-900 underline font-semibold transition-colors px-2 py-1"
               >
                 Reset All Filters
               </button>
@@ -166,20 +162,20 @@ export const MenuSection: React.FC<MenuSectionProps> = ({ onAddToCart }) => {
         </div>
 
         {/* Dietary Preferences Filter Bar */}
-        <div className="pt-2 border-t border-white/10">
+        <div className="pt-2 border-t border-slate-100">
           <div className="flex items-center gap-2 mb-2">
-            <Filter className="w-4 h-4 text-[#e9c349]" />
-            <span className="text-xs font-serif-title font-bold text-[#f9f6ee] uppercase tracking-wider">
+            <Filter className="w-4 h-4 text-blue-700" />
+            <span className="text-xs font-serif-title font-bold text-slate-900 uppercase tracking-wider">
               Dietary Preferences &amp; Tags
             </span>
             {activeDietaryFilters.length > 0 && (
-              <span className="bg-[#800000] text-[#ffe088] text-[10px] font-bold px-2 py-0.5 rounded-full border border-[#e9c349]/40">
+              <span className="bg-blue-900 text-white text-[10px] font-bold px-2 py-0.5 rounded-full shadow-sm">
                 {activeDietaryFilters.length} Active
               </span>
             )}
           </div>
 
-          {/* Scrollable Filter Chips */}
+          {/* Filter Chips */}
           <div className="flex items-center gap-2 overflow-x-auto scrollbar-none pb-1 snap-x">
             {dietaryOptions.map((opt) => {
               const isActive = activeDietaryFilters.includes(opt.id);
@@ -187,15 +183,15 @@ export const MenuSection: React.FC<MenuSectionProps> = ({ onAddToCart }) => {
                 <button
                   key={opt.id}
                   onClick={() => toggleDietaryFilter(opt.id)}
-                  className={`snap-start shrink-0 px-3.5 py-2 rounded-xl text-xs font-semibold flex items-center gap-1.5 transition-all shadow-md active:scale-95 ${
+                  className={`snap-start shrink-0 px-3.5 py-2 rounded-xl text-xs font-semibold flex items-center gap-1.5 transition-all shadow-sm active:scale-95 ${
                     isActive
-                      ? 'bg-gradient-to-r from-[#e9c349] to-[#af8d11] text-[#13140f] font-extrabold ring-2 ring-[#e9c349]/60 shadow-[0_2px_10px_rgba(233,195,73,0.3)]'
-                      : 'bg-[#2a2a25] text-[#e5e2db]/90 border border-white/10 hover:border-[#e9c349]/50 hover:bg-[#32322c]'
+                      ? 'bg-blue-900 text-white font-extrabold border border-blue-800 shadow'
+                      : 'bg-slate-50 text-slate-700 border border-slate-200 hover:bg-blue-50 hover:border-blue-300'
                   }`}
                 >
                   <span className="text-sm">{opt.icon}</span>
                   <span>{opt.label}</span>
-                  {isActive && <Check className="w-3.5 h-3.5 stroke-[3] ml-0.5" />}
+                  {isActive && <Check className="w-3.5 h-3.5 stroke-[3] ml-0.5 text-amber-400" />}
                 </button>
               );
             })}
@@ -206,29 +202,33 @@ export const MenuSection: React.FC<MenuSectionProps> = ({ onAddToCart }) => {
 
       {/* Category Tabs Scrollbar */}
       <div className="flex gap-2 overflow-x-auto scrollbar-none pb-4 mb-8 snap-x">
-        {categories.map((cat) => (
-          <button
-            key={cat.id}
-            onClick={() => setActiveCategory(cat.id)}
-            className={`snap-start shrink-0 px-5 py-2.5 rounded-full font-serif-title font-bold text-xs sm:text-sm flex items-center gap-2 transition-all shadow-md ${
-              activeCategory === cat.id
-                ? 'bg-gradient-to-r from-[#800000] to-[#b22b1d] text-[#ffe088] border border-[#e9c349] shadow-[0_4px_12px_rgba(128,0,0,0.5)]'
-                : 'bg-[#2a2a25] text-[#e5e2db]/80 hover:bg-[#353530] hover:text-[#e9c349]'
-            }`}
-          >
-            <span className="material-symbols-outlined text-[18px] text-[#e9c349]">{cat.icon}</span>
-            {cat.label}
-          </button>
-        ))}
+        {categories.map((cat) => {
+          const IconComp = cat.icon;
+          const isActive = activeCategory === cat.id;
+          return (
+            <button
+              key={cat.id}
+              onClick={() => setActiveCategory(cat.id)}
+              className={`snap-start shrink-0 px-5 py-2.5 rounded-full font-serif-title font-bold text-xs sm:text-sm flex items-center gap-2 transition-all shadow-sm ${
+                isActive
+                  ? 'bg-blue-900 text-white border border-blue-800 shadow-md font-extrabold'
+                  : 'bg-white text-slate-700 border border-slate-200 hover:bg-blue-50 hover:text-blue-900'
+              }`}
+            >
+              <IconComp className={`w-4 h-4 ${isActive ? 'text-amber-400' : 'text-blue-700'}`} />
+              {cat.label}
+            </button>
+          );
+        })}
       </div>
 
       {/* Menu Cards Grid */}
       {filteredItems.length === 0 ? (
-        <div className="bg-[#20201b] rounded-2xl p-12 text-center border border-white/10">
-          <p className="text-lg font-bold text-[#e2bfb9]">No dishes match your search/filter criteria.</p>
+        <div className="bg-white rounded-2xl p-12 text-center border border-slate-200 shadow-sm">
+          <p className="text-lg font-bold text-slate-700">No dishes match your search/filter criteria.</p>
           <button
             onClick={clearAllFilters}
-            className="mt-4 px-6 py-2 bg-[#e9c349] text-[#13140f] font-bold rounded-xl text-xs hover:bg-white transition-colors"
+            className="mt-4 px-6 py-2 bg-blue-900 text-white font-bold rounded-xl text-xs hover:bg-blue-800 transition-colors"
           >
             Reset All Filters
           </button>
@@ -244,12 +244,12 @@ export const MenuSection: React.FC<MenuSectionProps> = ({ onAddToCart }) => {
             return (
               <div
                 key={item.id}
-                className="bg-[#20201b] rounded-2xl overflow-hidden border border-[#af8d11]/20 hover:border-[#e9c349]/60 transition-all duration-300 shadow-xl flex flex-col group relative"
+                className="bg-white rounded-2xl overflow-hidden border border-slate-200 hover:border-blue-400 transition-all duration-300 shadow-sm hover:shadow-md flex flex-col group relative"
               >
                 {/* Bestseller Badge */}
                 {item.isBestseller && (
-                  <div className="absolute top-3 left-3 z-20 bg-gradient-to-r from-[#800000] to-[#b22b1d] text-[#ffe088] text-[10px] font-extrabold uppercase tracking-wider px-2.5 py-1 rounded-md border border-[#e9c349]/40 shadow-md flex items-center gap-1">
-                    <Flame className="w-3 h-3 text-[#e9c349] fill-[#e9c349]" />
+                  <div className="absolute top-3 left-3 z-20 bg-blue-900 text-white text-[10px] font-extrabold uppercase tracking-wider px-2.5 py-1 rounded-md border border-blue-800 shadow-md flex items-center gap-1">
+                    <Flame className="w-3 h-3 text-amber-400 fill-amber-400" />
                     Bestseller
                   </div>
                 )}
@@ -257,42 +257,42 @@ export const MenuSection: React.FC<MenuSectionProps> = ({ onAddToCart }) => {
                 {/* Top Right Badges: Spicy & Veg / Non-Veg */}
                 <div className="absolute top-3 right-3 z-20 flex items-center gap-1.5">
                   {item.isSpicy && (
-                    <div className="bg-[#13140f]/95 backdrop-blur px-2 py-0.5 rounded-md shadow-md border border-[#e9c349]/30 text-[10px] font-bold text-[#e9c349] flex items-center gap-0.5">
+                    <div className="bg-white/95 backdrop-blur px-2 py-0.5 rounded-md shadow-sm border border-slate-200 text-[10px] font-bold text-slate-800 flex items-center gap-0.5">
                       🌶️ <span className="hidden sm:inline">Spicy</span>
                     </div>
                   )}
 
-                  <div className="bg-[#13140f]/90 backdrop-blur p-1 rounded-md shadow-md border border-white/10" title={item.isVeg ? "Vegetarian" : "Non-Vegetarian"}>
+                  <div className="bg-white/95 backdrop-blur p-1 rounded-md shadow-sm border border-slate-200" title={item.isVeg ? "Vegetarian" : "Non-Vegetarian"}>
                     {item.isVeg ? (
-                      <div className="w-4 h-4 border-2 border-green-600 flex items-center justify-center p-0.5 rounded-sm">
-                        <div className="w-2 h-2 rounded-full bg-green-600"></div>
+                      <div className="w-4 h-4 border-2 border-emerald-600 flex items-center justify-center p-0.5 rounded-sm">
+                        <div className="w-2 h-2 rounded-full bg-emerald-600"></div>
                       </div>
                     ) : (
-                      <div className="w-4 h-4 border-2 border-[#800000] flex items-center justify-center p-0.5 rounded-sm">
-                        <div className="w-2 h-2 rounded-full bg-[#800000]"></div>
+                      <div className="w-4 h-4 border-2 border-red-700 flex items-center justify-center p-0.5 rounded-sm">
+                        <div className="w-2 h-2 rounded-full bg-red-700"></div>
                       </div>
                     )}
                   </div>
                 </div>
 
-                {/* Realistic Food Thumbnail Image */}
-                <div className="h-52 w-full relative overflow-hidden bg-[#2a2a25]">
+                {/* Food Thumbnail Image */}
+                <div className="h-52 w-full relative overflow-hidden bg-slate-100">
                   <img
                     src={item.image}
                     alt={item.name}
                     referrerPolicy="no-referrer"
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#20201b] via-transparent to-transparent opacity-80"></div>
+                  <div className="absolute inset-0 bg-gradient-to-t from-white via-transparent to-transparent opacity-90"></div>
                 </div>
 
                 {/* Card Info Content */}
-                <div className="p-5 flex-1 flex flex-col justify-between -mt-6 relative z-10 bg-[#20201b] rounded-t-2xl">
+                <div className="p-5 flex-1 flex flex-col justify-between -mt-6 relative z-10 bg-white rounded-t-2xl">
                   <div>
-                    <h3 className="font-serif-title font-bold text-xl text-[#f9f6ee] mb-1 group-hover:text-[#e9c349] transition-colors">
+                    <h3 className="font-serif-title font-bold text-xl text-slate-900 mb-1 group-hover:text-blue-700 transition-colors">
                       {item.name}
                     </h3>
-                    <p className="text-xs text-[#e5e2db]/70 leading-relaxed line-clamp-2 mb-4">
+                    <p className="text-xs text-slate-600 leading-relaxed line-clamp-2 mb-4 font-normal">
                       {item.description}
                     </p>
                   </div>
@@ -304,20 +304,20 @@ export const MenuSection: React.FC<MenuSectionProps> = ({ onAddToCart }) => {
                         {item.tags.map((tag) => (
                           <span
                             key={tag}
-                            className="text-[9px] uppercase font-bold px-2 py-0.5 rounded bg-[#2a2a25] text-[#e2bfb9] border border-white/5"
+                            className="text-[9px] uppercase font-bold px-2 py-0.5 rounded bg-slate-100 text-slate-600 border border-slate-200"
                           >
                             {tag}
                           </span>
                         ))}
                         {item.serves && (
-                          <span className="text-[9px] uppercase font-bold px-2 py-0.5 rounded bg-[#800000]/40 text-[#ffe088]">
+                          <span className="text-[9px] uppercase font-bold px-2 py-0.5 rounded bg-blue-50 text-blue-900 border border-blue-200">
                             {item.serves}
                           </span>
                         )}
                       </div>
                     )}
 
-                    {/* Price Options Selector (Mini, Plate, Handi, Family, Jumbo) */}
+                    {/* Price Options Selector */}
                     {item.priceOptions && item.priceOptions.length > 0 && (
                       <div className="grid grid-cols-2 sm:grid-cols-3 gap-1.5 mb-4">
                         {item.priceOptions.map((opt) => (
@@ -326,34 +326,34 @@ export const MenuSection: React.FC<MenuSectionProps> = ({ onAddToCart }) => {
                             onClick={() => handleSizeSelect(item.id, opt.size)}
                             className={`px-2 py-1 rounded text-[10px] font-bold transition-all border flex justify-between items-center ${
                               selectedSize === opt.size
-                                ? 'bg-[#800000] text-[#ffe088] border-[#e9c349]'
-                                : 'bg-[#2a2a25] text-[#e5e2db]/80 border-white/10 hover:border-[#e9c349]/50'
+                                ? 'bg-blue-900 text-white border-blue-800 shadow-sm'
+                                : 'bg-slate-50 text-slate-700 border-slate-200 hover:bg-blue-50'
                             }`}
                           >
                             <span>{opt.size}</span>
-                            <span className="text-[#e9c349]">₹{opt.price}</span>
+                            <span className={selectedSize === opt.size ? 'text-amber-400' : 'text-blue-800'}>₹{opt.price}</span>
                           </button>
                         ))}
                       </div>
                     )}
 
                     {/* Price & Add to Cart Action */}
-                    <div className="flex items-center justify-between pt-2 border-t border-white/10">
+                    <div className="flex items-center justify-between pt-2 border-t border-slate-100">
                       <div>
-                        <span className="text-xs text-[#e5e2db]/60 block uppercase font-semibold">
+                        <span className="text-xs text-slate-500 block uppercase font-semibold">
                           {item.priceOptions ? `Size: ${selectedSize}` : 'Price'}
                         </span>
-                        <span className="font-serif-title text-xl font-extrabold text-[#e9c349]">
+                        <span className="font-serif-title text-xl font-extrabold text-blue-900">
                           ₹{currentPrice}
                         </span>
                       </div>
 
                       <button
                         onClick={() => handleAdd(item)}
-                        className={`px-4 py-2.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 shadow-md active:scale-95 ${
+                        className={`px-4 py-2.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 shadow-sm active:scale-95 ${
                           addedItemAnimation === item.id
-                            ? 'bg-green-600 text-white'
-                            : 'bg-gradient-to-r from-[#e9c349] to-[#af8d11] text-[#13140f] hover:brightness-110'
+                            ? 'bg-emerald-600 text-white'
+                            : 'bg-blue-900 text-white hover:bg-blue-800 border border-blue-800'
                         }`}
                       >
                         {addedItemAnimation === item.id ? (
@@ -363,7 +363,7 @@ export const MenuSection: React.FC<MenuSectionProps> = ({ onAddToCart }) => {
                           </>
                         ) : (
                           <>
-                            <Plus className="w-4 h-4" />
+                            <Plus className="w-4 h-4 text-amber-400" />
                             Add to Order
                           </>
                         )}
@@ -378,18 +378,18 @@ export const MenuSection: React.FC<MenuSectionProps> = ({ onAddToCart }) => {
       )}
 
       {/* Bulk Order Banner Note */}
-      <div className="mt-12 bg-gradient-to-r from-[#800000]/40 via-[#2a2a25] to-[#800000]/40 rounded-2xl p-6 border border-[#e9c349]/30 text-center sm:text-left flex flex-col sm:flex-row justify-between items-center gap-4">
+      <div className="mt-12 bg-gradient-to-r from-blue-900 via-indigo-950 to-blue-900 rounded-2xl p-6 border border-blue-800 text-center sm:text-left flex flex-col sm:flex-row justify-between items-center gap-4 text-white shadow-md">
         <div>
-          <h3 className="font-serif-title font-bold text-lg text-[#e9c349]">
+          <h3 className="font-serif-title font-bold text-lg text-amber-400">
             Planning a Wedding or Party in Shadnagar?
           </h3>
-          <p className="text-xs sm:text-sm text-[#e5e2db]/80 mt-1">
+          <p className="text-xs sm:text-sm text-blue-100 mt-1">
             We deliver bulk biryani handis (Deghs) for gatherings of 20 to 100+ members with complete catering arrangements!
           </p>
         </div>
         <a
           href="tel:09666886613"
-          className="px-6 py-3 bg-[#e9c349] text-[#13140f] font-bold rounded-xl text-xs sm:text-sm shrink-0 shadow-lg hover:bg-white transition-colors"
+          className="px-6 py-3 bg-white text-blue-950 font-extrabold rounded-xl text-xs sm:text-sm shrink-0 shadow-md hover:bg-blue-50 transition-colors"
         >
           Call Bulk Orders: 096668 86613
         </a>
@@ -398,3 +398,4 @@ export const MenuSection: React.FC<MenuSectionProps> = ({ onAddToCart }) => {
     </section>
   );
 };
+

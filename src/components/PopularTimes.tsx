@@ -4,7 +4,6 @@ import { BarChart3, Clock, Sparkles } from 'lucide-react';
 export const PopularTimes: React.FC = () => {
   const [dayType, setDayType] = useState<'weekday' | 'weekend'>('weekend');
 
-  // Popularity percentage values (0 to 100)
   const hourlyData = {
     weekday: [
       { hour: '12 PM', pct: 45, label: 'Moderate' },
@@ -28,33 +27,33 @@ export const PopularTimes: React.FC = () => {
 
   return (
     <section className="px-4 sm:px-6 py-8 max-w-4xl mx-auto">
-      <div className="bg-[#20201b] rounded-3xl p-6 sm:p-8 border border-[#af8d11]/30 shadow-2xl relative overflow-hidden">
+      <div className="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-sm relative overflow-hidden">
         
         {/* Glow backdrop */}
-        <div className="absolute top-0 right-0 w-48 h-48 bg-[#e9c349]/5 rounded-full blur-2xl pointer-events-none"></div>
+        <div className="absolute top-0 right-0 w-48 h-48 bg-blue-500/5 rounded-full blur-2xl pointer-events-none"></div>
 
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
           <div>
-            <span className="text-[10px] font-bold uppercase tracking-widest text-[#e9c349] flex items-center gap-1.5 mb-1">
-              <BarChart3 className="w-3.5 h-3.5 text-[#e9c349]" />
+            <span className="text-[10px] font-bold uppercase tracking-widest text-blue-900 flex items-center gap-1.5 mb-1">
+              <BarChart3 className="w-3.5 h-3.5 text-blue-700" />
               Foot Traffic Insights
             </span>
-            <h3 className="font-serif-title text-2xl font-bold text-[#f9f6ee]">
+            <h3 className="font-serif-title text-2xl font-bold text-slate-900">
               Popular Dining Hours
             </h3>
-            <p className="text-xs text-[#e5e2db]/70 mt-0.5">
+            <p className="text-xs text-slate-600 mt-0.5">
               Plan your visit or table booking to skip the weekend dinner rush!
             </p>
           </div>
 
           {/* Weekday / Weekend Switch */}
-          <div className="bg-[#13140f] p-1 rounded-xl border border-white/10 flex gap-1">
+          <div className="bg-slate-100 p-1 rounded-xl border border-slate-200 flex gap-1">
             <button
               onClick={() => setDayType('weekday')}
               className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${
                 dayType === 'weekday'
-                  ? 'bg-[#800000] text-[#ffe088]'
-                  : 'text-[#e5e2db]/60 hover:text-white'
+                  ? 'bg-blue-900 text-white shadow-sm'
+                  : 'text-slate-600 hover:text-slate-900'
               }`}
             >
               Mon - Thu
@@ -63,8 +62,8 @@ export const PopularTimes: React.FC = () => {
               onClick={() => setDayType('weekend')}
               className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${
                 dayType === 'weekend'
-                  ? 'bg-[#e9c349] text-[#13140f]'
-                  : 'text-[#e5e2db]/60 hover:text-white'
+                  ? 'bg-blue-900 text-white shadow-sm'
+                  : 'text-slate-600 hover:text-slate-900'
               }`}
             >
               Fri - Sun (Peak)
@@ -73,27 +72,27 @@ export const PopularTimes: React.FC = () => {
         </div>
 
         {/* Bar Chart Container */}
-        <div className="bg-[#13140f] p-6 rounded-2xl border border-white/5">
+        <div className="bg-slate-50 p-6 rounded-2xl border border-slate-200">
           <div className="flex items-end justify-between h-36 sm:h-44 gap-2 pt-6">
             {currentData.map((item, idx) => (
               <div key={idx} className="flex-1 flex flex-col items-center gap-2 group relative">
                 
                 {/* Tooltip on Hover */}
-                <div className="absolute -top-8 bg-[#e9c349] text-[#13140f] text-[9px] font-extrabold px-2 py-0.5 rounded shadow-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap z-10 pointer-events-none">
+                <div className="absolute -top-8 bg-blue-900 text-white text-[9px] font-extrabold px-2 py-0.5 rounded shadow-md opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap z-10 pointer-events-none">
                   {item.pct}% ({item.label})
                 </div>
 
                 {/* Vertical Bar */}
-                <div className="w-full max-w-[40px] bg-[#2a2a25] rounded-t-lg h-full flex items-end overflow-hidden">
+                <div className="w-full max-w-[40px] bg-slate-200 rounded-t-lg h-full flex items-end overflow-hidden">
                   <div
                     className={`w-full transition-all duration-700 rounded-t-lg ${
                       item.isPeak
-                        ? 'bg-gradient-to-t from-[#800000] via-[#e9c349] to-[#ffe088] shadow-[0_0_12px_rgba(233,195,73,0.6)] animate-pulse'
+                        ? 'bg-gradient-to-t from-blue-900 via-indigo-900 to-blue-700 shadow-md animate-pulse'
                         : item.pct > 70
-                        ? 'bg-[#e9c349]'
+                        ? 'bg-blue-900'
                         : item.pct > 40
-                        ? 'bg-[#800000]'
-                        : 'bg-[#800000]/40'
+                        ? 'bg-blue-700'
+                        : 'bg-blue-400'
                     }`}
                     style={{ height: `${item.pct}%` }}
                   ></div>
@@ -102,7 +101,7 @@ export const PopularTimes: React.FC = () => {
                 {/* Time Label */}
                 <span
                   className={`text-[11px] font-bold ${
-                    item.isPeak ? 'text-[#e9c349]' : 'text-[#e5e2db]/70'
+                    item.isPeak ? 'text-blue-900 font-extrabold' : 'text-slate-600'
                   }`}
                 >
                   {item.hour}
@@ -111,13 +110,13 @@ export const PopularTimes: React.FC = () => {
             ))}
           </div>
 
-          <div className="mt-4 pt-3 border-t border-white/5 flex flex-wrap items-center justify-between text-xs text-[#e2bfb9]">
+          <div className="mt-4 pt-3 border-t border-slate-200 flex flex-wrap items-center justify-between text-xs text-slate-700">
             <div className="flex items-center gap-2">
-              <Clock className="w-4 h-4 text-[#e9c349]" />
-              <span>Busiest hours: <strong>8:00 PM – 9:30 PM</strong></span>
+              <Clock className="w-4 h-4 text-blue-700" />
+              <span>Busiest hours: <strong className="text-slate-900">8:00 PM – 9:30 PM</strong></span>
             </div>
-            <div className="flex items-center gap-1 text-[#e9c349] font-semibold text-[11px] mt-1 sm:mt-0">
-              <Sparkles className="w-3.5 h-3.5" />
+            <div className="flex items-center gap-1 text-blue-900 font-semibold text-[11px] mt-1 sm:mt-0">
+              <Sparkles className="w-3.5 h-3.5 text-blue-700" />
               <span>Tip: Book table early for 8 PM dinner</span>
             </div>
           </div>
@@ -127,3 +126,4 @@ export const PopularTimes: React.FC = () => {
     </section>
   );
 };
+

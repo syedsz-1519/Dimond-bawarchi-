@@ -20,10 +20,10 @@ export const WhatsAppWidget: React.FC = () => {
     <div className="fixed bottom-20 sm:bottom-6 right-4 sm:right-6 z-40 flex flex-col items-end">
       {/* Expandable Chat Popup Box */}
       {isOpen && (
-        <div className="mb-3 w-80 max-w-[calc(100vw-2rem)] bg-[#1c1d17] border border-green-500/40 rounded-2xl shadow-2xl overflow-hidden animate-slideUp text-[#e5e2db] z-50">
+        <div className="mb-3 w-80 max-w-[calc(100vw-2rem)] bg-white border border-slate-200 rounded-2xl shadow-2xl overflow-hidden animate-slideUp text-slate-800 z-50">
           
           {/* Header */}
-          <div className="bg-gradient-to-r from-green-700 via-green-800 to-emerald-900 p-4 text-white relative">
+          <div className="bg-gradient-to-r from-emerald-600 via-emerald-700 to-teal-800 p-4 text-white relative">
             <button
               onClick={() => setIsOpen(false)}
               className="absolute top-3 right-3 p-1 rounded-full bg-black/20 hover:bg-black/40 text-white/80 hover:text-white transition-colors"
@@ -32,15 +32,15 @@ export const WhatsAppWidget: React.FC = () => {
               <X className="w-4 h-4" />
             </button>
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-full bg-white text-green-700 flex items-center justify-center font-bold shadow-md">
-                <svg className="w-6 h-6 fill-green-600" viewBox="0 0 24 24">
+              <div className="w-10 h-10 rounded-full bg-white text-emerald-600 flex items-center justify-center font-bold shadow-md">
+                <svg className="w-6 h-6 fill-emerald-600" viewBox="0 0 24 24">
                   <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.299.38 2.51 1.036 3.534l-.678 2.476 2.539-.665c.983.535 2.11.839 3.313.84 3.182 0 5.768-2.586 5.768-5.766 0-3.18-2.586-5.766-5.768-5.766zm9.969 5.766c0 5.523-4.477 10-10 10-1.782 0-3.454-.467-4.908-1.285l-5.092 1.333 1.357-4.957c-.928-1.516-1.463-3.298-1.463-5.205 0-5.523 4.477-10 10-10s10 4.477 10 10z"/>
                 </svg>
               </div>
               <div>
                 <h4 className="font-serif-title font-bold text-base text-white">Diamond Bawarchi</h4>
-                <div className="flex items-center gap-1.5 text-[11px] text-green-200">
-                  <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse"></span>
+                <div className="flex items-center gap-1.5 text-[11px] text-emerald-100 font-medium">
+                  <span className="w-2 h-2 rounded-full bg-emerald-300 animate-pulse"></span>
                   <span>WhatsApp Direct ({displayPhone})</span>
                 </div>
               </div>
@@ -48,8 +48,8 @@ export const WhatsAppWidget: React.FC = () => {
           </div>
 
           {/* Quick Chat Options */}
-          <div className="p-3.5 space-y-2 text-xs bg-[#13140f]">
-            <p className="text-[11px] text-[#e5e2db]/70 mb-2">
+          <div className="p-3.5 space-y-2 text-xs bg-slate-50">
+            <p className="text-[11px] text-slate-600 mb-2 font-medium">
               Select an option to open direct chat on WhatsApp:
             </p>
 
@@ -59,10 +59,10 @@ export const WhatsAppWidget: React.FC = () => {
                 href={`https://wa.me/${phoneNumber}?text=${encodeURIComponent(item.text)}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full text-left p-2.5 rounded-xl bg-[#20201b] hover:bg-green-900/30 border border-white/10 hover:border-green-500/50 transition-all flex items-center justify-between group"
+                className="w-full text-left p-2.5 rounded-xl bg-white hover:bg-emerald-50 border border-slate-200 hover:border-emerald-300 transition-all flex items-center justify-between group shadow-sm"
               >
-                <span className="font-semibold text-[#f9f6ee] group-hover:text-green-300">{item.label}</span>
-                <ChevronRight className="w-4 h-4 text-green-400 group-hover:translate-x-1 transition-transform" />
+                <span className="font-semibold text-slate-800 group-hover:text-emerald-700">{item.label}</span>
+                <ChevronRight className="w-4 h-4 text-emerald-600 group-hover:translate-x-1 transition-transform" />
               </a>
             ))}
 
@@ -71,7 +71,7 @@ export const WhatsAppWidget: React.FC = () => {
               href={waUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-3 w-full py-3 bg-green-600 hover:bg-green-500 text-white font-extrabold rounded-xl flex items-center justify-center gap-2 shadow-lg transition-colors text-xs"
+              className="mt-3 w-full py-3 bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold rounded-xl flex items-center justify-center gap-2 shadow-sm transition-colors text-xs"
             >
               <span>Start General WhatsApp Chat</span>
             </a>
@@ -84,19 +84,19 @@ export const WhatsAppWidget: React.FC = () => {
       <div className="relative group">
         {/* Tooltip Badge on Hover / Idle */}
         {!isOpen && (
-          <div className="absolute right-full mr-3 top-1/2 -translate-y-1/2 hidden sm:flex items-center gap-2 bg-[#1c1d17] text-white text-xs font-bold px-3 py-1.5 rounded-xl border border-green-500/40 shadow-xl whitespace-nowrap">
-            <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse"></span>
+          <div className="absolute right-full mr-3 top-1/2 -translate-y-1/2 hidden sm:flex items-center gap-2 bg-white text-slate-800 text-xs font-bold px-3 py-1.5 rounded-xl border border-slate-200 shadow-lg whitespace-nowrap">
+            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
             <span>WhatsApp Us: {displayPhone}</span>
           </div>
         )}
 
         <button
           onClick={() => setIsOpen(!isOpen)}
-          className="relative w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-gradient-to-r from-green-500 to-emerald-600 text-white flex items-center justify-center shadow-[0_4px_25px_rgba(34,197,94,0.5)] border-2 border-white/20 hover:scale-110 active:scale-95 transition-all duration-300 group"
+          className="relative w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-gradient-to-r from-emerald-500 to-teal-600 text-white flex items-center justify-center shadow-lg border-2 border-white hover:scale-110 active:scale-95 transition-all duration-300 group"
           aria-label="Contact on WhatsApp"
         >
           {/* Pulsing ring */}
-          <span className="absolute -inset-1 rounded-full bg-green-500/40 animate-ping pointer-events-none"></span>
+          <span className="absolute -inset-1 rounded-full bg-emerald-400/30 animate-ping pointer-events-none"></span>
 
           {isOpen ? (
             <X className="w-6 h-6 stroke-[2.5]" />
@@ -110,3 +110,4 @@ export const WhatsAppWidget: React.FC = () => {
     </div>
   );
 };
+

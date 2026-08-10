@@ -72,7 +72,7 @@ export default function App() {
   const totalCartCount = cartItems.reduce((acc, ci) => acc + ci.quantity, 0);
 
   return (
-    <div className="min-h-screen bg-[#13140f] text-[#e5e2db] font-sans selection:bg-[#800000] selection:text-[#ffe088] antialiased">
+    <div className="min-h-screen bg-slate-50 text-slate-800 font-sans selection:bg-blue-900 selection:text-white antialiased">
       
       {/* Fixed Navigation Header */}
       <Header

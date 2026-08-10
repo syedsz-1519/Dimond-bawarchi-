@@ -2,8 +2,8 @@
 
 @layer base {
   body {
-    background-color: #13140f;
-    color: #e5e2db;
+    background-color: #f8fafc;
+    color: #1e293b;
     font-family: 'Montserrat', sans-serif;
   }
 
@@ -13,7 +13,7 @@
 }
 
 .pattern-overlay {
-  background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 0l2.5 22.5L55 25 32.5 27.5 30 50l-2.5-22.5L5 25l22.5-2.5z' fill='%23af8d11' fill-opacity='0.03' fill-rule='evenodd'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 0l2.5 22.5L55 25 32.5 27.5 30 50l-2.5-22.5L5 25l22.5-2.5z' fill='%231e3a8a' fill-opacity='0.03' fill-rule='evenodd'/%3E%3C/svg%3E");
 }
 
 .scrollbar-none::-webkit-scrollbar {
@@ -24,15 +24,27 @@
   scrollbar-width: none;
 }
 
-/* Custom gold gradient text */
-.text-gold-gradient {
-  background: linear-gradient(135deg, #FFE088 0%, #E9C349 50%, #AF8D11 100%);
+/* Custom navy gradient text */
+.text-navy-gradient {
+  background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 50%, #2563eb 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
-/* Custom maroon gradient background */
-.bg-maroon-gradient {
-  background: linear-gradient(180deg, #800000 0%, #4D0000 100%);
+/* Custom gold gradient text */
+.text-gold-gradient {
+  background: linear-gradient(135deg, #d97706 0%, #f59e0b 50%, #b45309 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
+
+/* Custom navy gradient background */
+.bg-navy-gradient {
+  background: linear-gradient(180deg, #1e3a8a 0%, #0f172a 100%);
+}
+
+.bg-maroon-gradient {
+  background: linear-gradient(180deg, #1e3a8a 0%, #0f172a 100%);
+}
+
 
