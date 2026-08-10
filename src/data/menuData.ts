@@ -202,7 +202,7 @@ export const MENU_ITEMS: MenuItem[] = [
     price: 270,
     isVeg: false,
     isSpicy: true,
-    image: 'https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?auto=format&fit=crop&w=800&q=80',
+    image: 'https://images.unsplash.com/photo-1610057099443-fde8c4d50f91?auto=format&fit=crop&w=800&q=80',
     tags: ['gluten-free', 'nut-free'],
     serves: '6 Pieces'
   },
@@ -239,7 +239,7 @@ export const MENU_ITEMS: MenuItem[] = [
     price: 270,
     isVeg: false,
     isSpicy: true,
-    image: 'https://images.unsplash.com/photo-1603894584373-5ac82b2ae398?auto=format&fit=crop&w=800&q=80',
+    image: 'https://images.unsplash.com/photo-1565557623262-b51c2513a641?auto=format&fit=crop&w=800&q=80',
     tags: ['gluten-free', 'nut-free'],
     serves: 'Serves 2'
   },
@@ -298,7 +298,7 @@ export const MENU_ITEMS: MenuItem[] = [
     category: 'rotis',
     price: 25,
     isVeg: true,
-    image: 'https://images.unsplash.com/photo-1626074353765-517a681e40be?auto=format&fit=crop&w=800&q=80',
+    image: 'https://images.unsplash.com/photo-1573080496219-bb080dd4f877?auto=format&fit=crop&w=800&q=80',
     tags: ['vegan', 'nut-free'],
     serves: '1 Piece'
   },
@@ -360,7 +360,7 @@ export const MENU_ITEMS: MenuItem[] = [
     price: 899,
     isVeg: false,
     isBestseller: true,
-    image: 'https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?auto=format&fit=crop&w=800&q=80',
+    image: 'https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=800&q=80',
     tags: ['gluten-free'],
     serves: 'Serves 3-4 Members'
   }

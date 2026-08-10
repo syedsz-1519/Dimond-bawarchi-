@@ -1,6 +1,6 @@
 import React from 'react';
 import { PageSection } from '../types';
-import { Utensils, PartyPopper, BedDouble, ShieldCheck, Flame, ArrowRight, CheckCircle2 } from 'lucide-react';
+import { Utensils, PartyPopper, BedDouble, ShieldCheck, ArrowRight, CheckCircle2, Image as ImageIcon } from 'lucide-react';
 
 interface AboutSectionProps {
   setActiveSection: (section: PageSection) => void;
@@ -84,16 +84,16 @@ export const AboutSection: React.FC<AboutSectionProps> = ({ setActiveSection }) 
           </div>
 
           <div 
-            onClick={() => navigateTo('catering')}
+            onClick={() => navigateTo('gallery')}
             className="group cursor-pointer bg-[#2a2a25] p-5 rounded-2xl border border-transparent hover:border-[#e9c349] transition-all shadow-md hover:shadow-xl hover:-translate-y-1"
           >
             <div className="w-14 h-14 rounded-full bg-[#800000] text-[#e9c349] flex items-center justify-center mx-auto mb-3 group-hover:scale-110 transition-transform shadow-inner">
-              <Flame className="w-7 h-7" />
+              <ImageIcon className="w-7 h-7" />
             </div>
             <h3 className="font-serif-title font-bold text-sm sm:text-base text-[#f9f6ee] group-hover:text-[#e9c349]">
-              Bulk Catering
+              Photo Gallery
             </h3>
-            <p className="text-xs text-[#e2bfb9] mt-1">20 to 100+ Members</p>
+            <p className="text-xs text-[#e2bfb9] mt-1">Ambiance &amp; Food</p>
           </div>
         </div>
 

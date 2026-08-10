@@ -56,8 +56,7 @@ export const Hero: React.FC<HeroProps> = ({ setActiveSection, setIsBookingOpen }
           <button
             onClick={() => {
               setActiveSection('menu');
-              const menuElem = document.getElementById('menu-section');
-              if (menuElem) menuElem.scrollIntoView({ behavior: 'smooth' });
+              window.scrollTo({ top: 0, behavior: 'smooth' });
             }}
             className="flex-1 bg-gradient-to-r from-[#800000] to-[#b22b1d] text-[#ffe088] font-bold text-base sm:text-lg py-4 rounded-xl shadow-[0_4px_20px_rgba(128,0,0,0.5)] border border-[#e9c349]/40 flex items-center justify-center gap-2.5 hover:scale-[1.02] active:scale-95 transition-all"
           >
@@ -71,6 +70,39 @@ export const Hero: React.FC<HeroProps> = ({ setActiveSection, setIsBookingOpen }
           >
             <Calendar className="w-5 h-5 text-[#e9c349]" />
             Book a Table
+          </button>
+        </div>
+
+        {/* Individual Feature Jump Badges */}
+        <div className="flex flex-wrap items-center justify-center gap-2 max-w-xl mt-3">
+          <button
+            onClick={() => {
+              setActiveSection('menu');
+              window.scrollTo({ top: 0, behavior: 'smooth' });
+            }}
+            className="px-3 py-1.5 rounded-full bg-black/60 hover:bg-[#800000] text-[#e9c349] border border-[#e9c349]/40 text-xs font-bold transition-all flex items-center gap-1.5 shadow"
+          >
+            <span>🍗 Dum Biryani &amp; Starters</span>
+          </button>
+
+          <button
+            onClick={() => {
+              setActiveSection('catering');
+              window.scrollTo({ top: 0, behavior: 'smooth' });
+            }}
+            className="px-3 py-1.5 rounded-full bg-black/60 hover:bg-[#800000] text-[#e9c349] border border-[#e9c349]/40 text-xs font-bold transition-all flex items-center gap-1.5 shadow"
+          >
+            <span>🎉 Catering &amp; Banquet Hall</span>
+          </button>
+
+          <button
+            onClick={() => {
+              setActiveSection('hotel');
+              window.scrollTo({ top: 0, behavior: 'smooth' });
+            }}
+            className="px-3 py-1.5 rounded-full bg-black/60 hover:bg-[#800000] text-[#e9c349] border border-[#e9c349]/40 text-xs font-bold transition-all flex items-center gap-1.5 shadow"
+          >
+            <span>🏨 Deluxe Hotel Rooms</span>
           </button>
         </div>
 

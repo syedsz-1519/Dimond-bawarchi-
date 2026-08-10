@@ -90,7 +90,6 @@ export default function App() {
             <AboutSection setActiveSection={setActiveSection} />
             <MenuSection onAddToCart={handleAddToCart} />
             <PopularTimes />
-            <GallerySection />
             <ReviewsSection />
             <ContactSection />
           </>

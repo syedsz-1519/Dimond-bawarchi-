@@ -22,7 +22,7 @@ export const HOTEL_ROOMS: HotelRoom[] = [
     name: 'Executive Family Suite',
     pricePerNight: 3999,
     description: 'Enhanced luxury featuring a master bedroom with plush king bed, separate seating lounge, mini fridge, and extra guest capacity.',
-    image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuDsOCfq4XCNyAsLWA7K4FfeElrykL-sY-gwPlW7FvfX34AMYfeDomeYWeZd70WeDf-WZyJD38WqzDCIGFHQZQNOZHQxp72FRyOHegwctl3Ljp25oGMEtodP3uqMLj16bz000VoXwrSxvFzj8BF51NjpZdkLk7q9lbkUszmmgsBaeDLpFWjAbIJLURjKAethD_KB2cRHUh5jOuZbjEF0jaMAWRzY8eS_5FsHhKgH-esIODUhC7FwIraJ',
+    image: 'https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=800&q=80',
     badge: 'Luxury Suite',
     amenities: [
       'Living Lounge Area',

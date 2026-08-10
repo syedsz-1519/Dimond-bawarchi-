@@ -7,7 +7,7 @@ export const CATERING_PACKAGES: CateringPackage[] = [
     members: 20,
     price: 4999,
     description: 'Ideal for house parties, birthday celebrations, and small family reunions.',
-    image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuC5D35suxJbFoV7XZRJH5zGUjBP6Y0rk82Hvd9ckGc6PDQ_-TdHUCFtA0wi0Mspc5hwhk9Ssoshy12uCurS-9YrcEIXl8Ksx66rBLXdHsW2pweuYCH-NVKfCgLvyTUnteVxfO2hSgNXwXZps4AyZ7gQonh9AkK-vFP4pxlADJYRpawkZRm1bMNnTgzXr_SJP865VDlRvYyf7EQYL3AvYjZ2Ustt3jJehZOztU7GHFKId999B4VBTlBj',
+    image: 'https://images.unsplash.com/photo-1555244162-803834f70033?auto=format&fit=crop&w=800&q=80',
     items: [
       '4 kg Signature Dum Chicken or Mutton Biryani',
       'Authentic Mirchi Ka Salan (2 Ltrs)',

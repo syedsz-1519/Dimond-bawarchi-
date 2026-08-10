@@ -21,17 +21,21 @@ export const Footer: React.FC<FooterProps> = ({ setActiveSection }) => {
         
         {/* Brand Info */}
         <div className="space-y-3">
-          <div className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-full bg-[#800000] text-[#e9c349] flex items-center justify-center border border-[#e9c349]/40">
-              <span className="material-symbols-outlined text-lg">diamond</span>
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-[#ffe088] via-[#e9c349] to-[#af8d11] p-0.5 shadow-md">
+              <div className="w-full h-full rounded-[14px] bg-[#13140f] flex items-center justify-center text-[#e9c349]">
+                <span className="material-symbols-outlined text-[24px]">diamond</span>
+              </div>
             </div>
-            <span className="font-serif-title font-bold text-xl text-[#f9f6ee]">
-              Diamond Bawarchi
-            </span>
+            <div>
+              <span className="font-serif-title font-bold text-xl text-[#f9f6ee] tracking-tight block">
+                Diamond Bawarchi
+              </span>
+              <span className="text-[11px] font-serif-title italic text-[#e9c349] font-semibold">
+                "Quality &amp; Tasty Biryani"
+              </span>
+            </div>
           </div>
-          <p className="font-serif-title italic text-[#e9c349] text-sm font-semibold">
-            "Quality &amp; Tasty Biryani"
-          </p>
           <p className="text-xs text-[#e5e2db]/70 leading-relaxed">
             Shadnagar's favorite biryani landmark serving authentic Hyderabadi Dum Biryani, Jail Mandi, Banquet Hall celebrations, and Deluxe AC Hotel Rooms.
           </p>
