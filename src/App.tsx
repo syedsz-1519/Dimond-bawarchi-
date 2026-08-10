@@ -89,9 +89,7 @@ export default function App() {
             <Hero setActiveSection={setActiveSection} setIsBookingOpen={setIsBookingOpen} />
             <AboutSection setActiveSection={setActiveSection} />
             <MenuSection onAddToCart={handleAddToCart} />
-            <CateringSection />
             <PopularTimes />
-            <HotelSection />
             <GallerySection />
             <ReviewsSection />
             <ContactSection />
