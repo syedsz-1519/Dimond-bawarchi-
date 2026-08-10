@@ -1,0 +1,38 @@
+@import "tailwindcss";
+
+@layer base {
+  body {
+    background-color: #13140f;
+    color: #e5e2db;
+    font-family: 'Montserrat', sans-serif;
+  }
+
+  h1, h2, h3, .font-serif-title {
+    font-family: 'Playfair Display', serif;
+  }
+}
+
+.pattern-overlay {
+  background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 0l2.5 22.5L55 25 32.5 27.5 30 50l-2.5-22.5L5 25l22.5-2.5z' fill='%23af8d11' fill-opacity='0.03' fill-rule='evenodd'/%3E%3C/svg%3E");
+}
+
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-none {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Custom gold gradient text */
+.text-gold-gradient {
+  background: linear-gradient(135deg, #FFE088 0%, #E9C349 50%, #AF8D11 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Custom maroon gradient background */
+.bg-maroon-gradient {
+  background: linear-gradient(180deg, #800000 0%, #4D0000 100%);
+}
+

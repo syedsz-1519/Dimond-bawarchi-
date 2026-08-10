@@ -1,0 +1,6 @@
+{
+  "name": "Diamond Bawarchi",
+  "description": "Quality & Tasty Biryani specialty restaurant, banquet hall, and hotel in Shadnagar, Farooqnagar, Telangana.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
