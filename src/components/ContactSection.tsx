@@ -13,6 +13,11 @@ export const ContactSection: React.FC = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setFormSubmitted(true);
+    
+    // Direct connection to WhatsApp 096668 86613
+    const text = `Hello Diamond Bawarchi (Shadnagar),\n\nI would like to submit an inquiry:\n• Name: ${formState.name}\n• Phone: ${formState.phone}\n• Service: ${formState.service}\n• Message: ${formState.message}`;
+    const waUrl = `https://wa.me/919666886613?text=${encodeURIComponent(text)}`;
+    window.open(waUrl, '_blank');
   };
 
   return (
@@ -190,10 +195,10 @@ export const ContactSection: React.FC = () => {
 
                 <button
                   type="submit"
-                  className="w-full py-3.5 bg-gradient-to-r from-[#800000] to-[#b22b1d] text-[#ffe088] font-bold text-xs rounded-xl border border-[#e9c349]/40 hover:bg-[#a00000] transition-all shadow-lg flex items-center justify-center gap-2"
+                  className="w-full py-3.5 bg-gradient-to-r from-green-700 to-green-800 hover:from-green-600 hover:to-green-700 text-white font-extrabold text-xs sm:text-sm rounded-xl border border-green-400/50 transition-all shadow-xl flex items-center justify-center gap-2 active:scale-95"
                 >
-                  <Send className="w-4 h-4 text-[#e9c349]" />
-                  Submit Inquiry
+                  <Send className="w-4 h-4 text-green-300" />
+                  <span>Submit Inquiry directly to WhatsApp (096668 86613)</span>
                 </button>
               </form>
             )}

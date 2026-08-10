@@ -17,6 +17,10 @@ export const CateringSection: React.FC = () => {
   const handleQuoteSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setSubmittedQuote(true);
+
+    const quoteMsg = `Hello Diamond Bawarchi Catering (Shadnagar),\n\nI would like an official quote for an event:\n• Name: ${quoteForm.name}\n• Phone: ${quoteForm.phone}\n• Event Date: ${quoteForm.eventDate}\n• Guests: ${guestCount} Members\n• Biryani Option: ${biryaniType}\n• Estimated Total: ₹${estimatedTotal}`;
+    const waUrl = `https://wa.me/919666886613?text=${encodeURIComponent(quoteMsg)}`;
+    window.open(waUrl, '_blank');
   };
 
   return (
@@ -276,10 +280,10 @@ export const CateringSection: React.FC = () => {
 
                 <button
                   type="submit"
-                  className="w-full py-3 bg-[#800000] text-[#ffe088] font-bold text-xs rounded-xl border border-[#e9c349]/40 flex items-center justify-center gap-2 hover:bg-[#a00000] transition-colors mt-2"
+                  className="w-full py-3 bg-gradient-to-r from-green-700 to-green-800 hover:from-green-600 hover:to-green-700 text-white font-extrabold text-xs sm:text-sm rounded-xl border border-green-400/50 flex items-center justify-center gap-2 transition-all shadow-md mt-2 active:scale-95"
                 >
-                  <Send className="w-4 h-4 text-[#e9c349]" />
-                  Submit Quote Request
+                  <Send className="w-4 h-4 text-green-300" />
+                  <span>Submit Quote Request via WhatsApp (096668 86613)</span>
                 </button>
               </form>
             )}

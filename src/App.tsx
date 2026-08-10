@@ -14,6 +14,7 @@ import { Footer } from './components/Footer';
 import { CartDrawer } from './components/CartDrawer';
 import { TableBookingModal } from './components/TableBookingModal';
 import { StickyNav } from './components/StickyNav';
+import { WhatsAppWidget } from './components/WhatsAppWidget';
 
 export default function App() {
   const [activeSection, setActiveSection] = useState<PageSection>('home');
@@ -138,6 +139,9 @@ export default function App() {
         setIsCartOpen={setIsCartOpen}
         setIsBookingOpen={setIsBookingOpen}
       />
+
+      {/* Floating WhatsApp Quick Action Widget */}
+      <WhatsAppWidget />
 
     </div>
   );

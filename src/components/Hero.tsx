@@ -120,7 +120,7 @@ export const Hero: React.FC<HeroProps> = ({ setActiveSection, setIsBookingOpen }
 
           <div className="flex items-center justify-center gap-1.5 bg-black/40 backdrop-blur px-3 py-2 rounded-lg border border-white/5">
             <Star className="w-4 h-4 text-[#e9c349] fill-[#e9c349] shrink-0" />
-            <span>4.2★ Google</span>
+            <span>3.8★ (697) Google</span>
           </div>
 
           <a

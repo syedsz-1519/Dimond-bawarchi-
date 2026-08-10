@@ -60,6 +60,24 @@ export const StickyNav: React.FC<StickyNavProps> = ({
 
             <div className="grid grid-cols-1 gap-2.5">
               <a
+                href="https://wa.me/919666886613?text=Hello%20Diamond%20Bawarchi%20Shadnagar,%20I%20would%20like%20to%20place%20an%20order%20/%20inquire."
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center justify-between p-3.5 rounded-xl bg-gradient-to-r from-green-700 to-green-800 text-white font-medium border border-green-400/50 active:scale-98 transition-transform"
+              >
+                <div className="flex items-center gap-3">
+                  <div className="w-9 h-9 rounded-full bg-[#13140f] flex items-center justify-center text-green-400 font-bold">
+                    WA
+                  </div>
+                  <div className="text-left">
+                    <div className="text-xs text-green-200 font-sans">WhatsApp Inquiry & Order</div>
+                    <div className="text-base font-bold font-mono text-white">096668 86613</div>
+                  </div>
+                </div>
+                <span className="text-xs font-bold bg-green-400 text-[#13140f] px-2.5 py-1 rounded-full">WhatsApp</span>
+              </a>
+
+              <a
                 href="tel:09666886613"
                 className="flex items-center justify-between p-3.5 rounded-xl bg-gradient-to-r from-[#800000] to-[#a30000] text-[#ffe088] border border-[#e9c349]/50 font-medium active:scale-98 transition-transform"
               >
@@ -68,7 +86,7 @@ export const StickyNav: React.FC<StickyNavProps> = ({
                     <Phone className="w-5 h-5" />
                   </div>
                   <div className="text-left">
-                    <div className="text-xs text-[#e5e2db]/80 font-sans">Primary Ordering Line</div>
+                    <div className="text-xs text-[#e5e2db]/80 font-sans">Direct Phone Call</div>
                     <div className="text-base font-bold font-mono text-[#ffffff]">096668 86613</div>
                   </div>
                 </div>

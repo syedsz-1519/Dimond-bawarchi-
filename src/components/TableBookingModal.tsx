@@ -23,6 +23,10 @@ export const TableBookingModal: React.FC<TableBookingModalProps> = ({ isOpen, on
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setSubmitted(true);
+
+    const bookingMsg = `Hello Diamond Bawarchi (Shadnagar),\n\nI would like to reserve a table:\n• Name: ${form.name}\n• Phone: ${form.phone}\n• Date: ${form.date || 'Today'}\n• Time: ${form.time}\n• Guests: ${form.guests} Members\n• Seating Preference: ${form.seatingArea}`;
+    const waUrl = `https://wa.me/919666886613?text=${encodeURIComponent(bookingMsg)}`;
+    window.open(waUrl, '_blank');
   };
 
   return (
@@ -154,9 +158,9 @@ export const TableBookingModal: React.FC<TableBookingModalProps> = ({ isOpen, on
 
             <button
               type="submit"
-              className="w-full py-3.5 bg-gradient-to-r from-[#800000] to-[#b22b1d] text-[#ffe088] font-bold text-xs rounded-xl border border-[#e9c349]/40 hover:bg-[#a00000] transition-all shadow-lg mt-2"
+              className="w-full py-3.5 bg-gradient-to-r from-green-700 to-green-800 hover:from-green-600 hover:to-green-700 text-white font-extrabold text-xs sm:text-sm rounded-xl border border-green-400/50 transition-all shadow-lg mt-2 active:scale-95 flex items-center justify-center gap-2"
             >
-              Confirm Table Reservation
+              <span>Confirm Table Reservation via WhatsApp (096668 86613)</span>
             </button>
           </form>
         )}

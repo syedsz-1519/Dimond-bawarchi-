@@ -20,6 +20,10 @@ export const HotelSection: React.FC = () => {
   const handleRoomBookSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setBookingSuccess(true);
+
+    const roomMsg = `Hello Diamond Bawarchi Hotel (Shadnagar),\n\nI would like to inquire about booking a room:\n• Room Type: ${selectedRoom?.name || 'Hotel Room'}\n• Guest Name: ${bookingForm.name}\n• Phone: ${bookingForm.phone}\n• Check-in: ${checkIn || 'To be confirmed'}\n• Check-out: ${checkOut || 'To be confirmed'}\n• Special Requests: ${bookingForm.specialRequest || 'None'}`;
+    const waUrl = `https://wa.me/919666886613?text=${encodeURIComponent(roomMsg)}`;
+    window.open(waUrl, '_blank');
   };
 
   return (
@@ -275,9 +279,9 @@ export const HotelSection: React.FC = () => {
 
                 <button
                   type="submit"
-                  className="w-full py-3 bg-[#e9c349] text-[#13140f] font-bold text-xs rounded-xl shadow-lg hover:bg-white transition-colors mt-2"
+                  className="w-full py-3 bg-gradient-to-r from-green-700 to-green-800 hover:from-green-600 hover:to-green-700 text-white font-extrabold text-xs sm:text-sm rounded-xl border border-green-400/50 shadow-lg transition-colors mt-2 flex items-center justify-center gap-2 active:scale-95"
                 >
-                  Confirm Room Inquiry
+                  <span>Confirm Room Inquiry via WhatsApp (096668 86613)</span>
                 </button>
               </form>
             )}

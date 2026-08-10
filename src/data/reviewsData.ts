@@ -1,10 +1,10 @@
 import { Review } from '../types';
 
 export const PLATFORM_RATINGS = [
-  { platform: 'Google', rating: 4.2, max: 5, totalReviews: '1,850+ reviews' },
-  { platform: 'Swiggy', rating: 4.0, max: 5, totalReviews: '2,400+ orders' },
-  { platform: 'magicpin', rating: 4.2, max: 5, totalReviews: '950+ vouchers' },
-  { platform: 'Justdial', rating: 3.8, max: 5, totalReviews: '620+ ratings' },
+  { platform: 'Google', rating: 3.8, max: 5, totalReviews: '697 reviews' },
+  { platform: 'Swiggy', rating: 3.8, max: 5, totalReviews: '1,200+ orders' },
+  { platform: 'magicpin', rating: 3.8, max: 5, totalReviews: '450+ vouchers' },
+  { platform: 'Justdial', rating: 3.8, max: 5, totalReviews: '380+ ratings' },
 ];
 
 export const REVIEWS: Review[] = [
