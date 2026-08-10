@@ -84,7 +84,7 @@ export default function App() {
       />
 
       {/* Main Content Sections */}
-      <main className="pt-16 pb-12">
+      <main className="pt-20 pb-12">
         {activeSection === 'home' && (
           <>
             <Hero setActiveSection={setActiveSection} setIsBookingOpen={setIsBookingOpen} />
